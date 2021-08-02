@@ -42,81 +42,97 @@
     </div>
     <!-- End Slider -->
     <div class="container justify-content-center mt-4">
-        <div class="row">
-            <div class="col">
-                <label class="bienvenido pt-2 pr-2" style="text-align: left;">APERTURA DE CUENTA INVERSIÓN</label>
-                <div class="separador" style="width: 85%;"></div>
-                <div class="row">
-                    <div class="col">
-                        <label class="texto-general"><b>¿Eres cliente Citibanamex?</b></label>
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-outline-info btn-sm ml-2" (click)="valFormYes()">Sí</button>
-                        <button class="btn btn-outline-info btn-sm ml-2" (click)="valFormNo()">No</button>
-                    </div>
-                </div>
-                <div class="row pt-4">
-                    <div class="col-3">
-                        <div class="form-group">
-                            <div *ngIf="showCliente==0">
-                                <label class="texto-general"><b>No. de Cliente: </b></label><br>
-                                <label class="texto-general pt-4"><b>Monto a Invertir: </b></label>
-                            </div>
-                            <div *ngIf="showCliente==1">
-                                <label class="texto-general pt-4"><b>Monto a Invertir: </b></label>
-                            </div>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col">
+                    <label class="bienvenido pt-2 pr-2" style="text-align: left;">APERTURA DE CUENTA INVERSIÓN</label>
+                    <div class="separador" style="width: 85%;"></div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="texto-general"><b>¿Eres cliente Citibanamex?</b></label>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-outline-info btn-sm ml-2" (click)="valFormYes()">Sí</button>
+                            <button class="btn btn-outline-info btn-sm ml-2" (click)="valFormNo()">No</button>
                         </div>
                     </div>
-                    <div class="col-5">
-                        <div class="form-group">
-                            <div *ngIf="showCliente==0">
-                                <input type="text" class="form-control form-control-sm redondear">
-                                <input type="text" class="form-control form-control-sm mt-2 redondear">
-                            </div>
-                            <div *ngIf="showCliente==1">
-                                <input type="text" class="form-control form-control-sm mt-2 redondear">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="showCliente!=-1">
-                    <div class="row pt-2">
+                    <div class="form-group row pt-4">
                         <div class="col-3">
+                            <div class="form-group">
+                                <div *ngIf="showCliente==0">
+                                    <label class="texto-general"><b>No. de Cliente: </b></label><br>
+                                    <label class="texto-general pt-4"><b>Monto a Invertir: </b></label>
+                                </div>
+                                <div *ngIf="showCliente==1">
+                                    <label class="texto-general pt-4"><b>Monto a Invertir: </b></label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <button type="button" class="btn btn-warning btn-sm m-1">Calcular</button>
-                            <button type="button" class="btn btn-success btn-sm m-1">Imprimir Selección</button>
+                        <div class="col-5">
+                            <div class="form-group">
+                                <div *ngIf="showCliente==0">
+                                    <input type="text" class="form-control form-control-sm redondear" (blur)="getCliente($event)"
+                                        formControlName="cliente" pattern="^[0-9]" PatternOnlyDirective maxlength="6">
+                                    <input type="text" class="form-control form-control-sm mt-2 redondear" 
+                                    formControlName="monto" pattern="^[0-9]" [(ngModel)]="monto" PatternOnlyDirective maxlength="6">
+                                </div>
+                                <div *ngIf="showCliente==1">
+                                    <input type="text" class="form-control form-control-sm mt-2 redondear" 
+                                    formControlName="monto" pattern="^[0-9]" [(ngModel)]="monto" PatternOnlyDirective maxlength="6">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="showCliente!=-1">
+                        <div class="row pt-2">
+                            <div class="col-3">
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-warning btn-sm m-1">Calcular</button>
+                                <button type="button" class="btn btn-success btn-sm m-1">Imprimir Selección</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div *ngIf="showImaCliente!=-1">
+                        <div *ngIf="showCliente!=-1">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="etiqueta-dato">
+                                        <label class="texto-general"><b>Saldo 1</b></label>
+                                        <div class="separador" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="etiqueta-dato">
+                                        <label class="texto-general"><b>Tipo de Persona</b></label>
+                                        <div class="separador" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5" style="text-align: center;">
+                                    <!-- <input type="text" class="form-control form-control-sm input-dato"> -->
+                                    <button class="btn btn-outline-info ml-2" (click)="setSaldo()">{{valSaldo}}</button>
+                                </div>
+                                <div class="col-5" style="text-align: center;">
+                                    <!-- <input type="text" class="form-control form-control-sm input-dato"> -->
+                                    <button class="btn btn-outline-info ml-2">{{valTipoPersona}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="showImaCliente==-1">
+                        <div class="row">
+                            <div class="col-4" style="float: left;">
+                                <img class="img-position pt-4" style="max-width: 95%;" alt="Citi Info" [src]="iconH">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div *ngIf="showCliente!=-1">
-                    <div class="row">
-                        <div class="col-5">
-                            <div class="etiqueta-dato">
-                                <label class="texto-general"><b>Saldo 1</b></label>
-                                <div class="separador" style="width: 100%;"></div>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="etiqueta-dato">
-                                <label class="texto-general"><b>Tipo de Persona</b></label>
-                                <div class="separador" style="width: 100%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5">
-                            <input type="text" class="form-control form-control-sm input-dato">
-                        </div>
-                        <div class="col-5">
-                            <input type="text" class="form-control form-control-sm input-dato">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 <br>

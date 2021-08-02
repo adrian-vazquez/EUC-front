@@ -5,6 +5,7 @@ import { PerfiladorRoutingModule } from './perfilador-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { IndexComponent } from './index/index.component';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,9 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
     CommonModule,
     PerfiladorRoutingModule,
     SharedModule,
-    IvyCarouselModule
+    IvyCarouselModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PerfiladorModule { }
